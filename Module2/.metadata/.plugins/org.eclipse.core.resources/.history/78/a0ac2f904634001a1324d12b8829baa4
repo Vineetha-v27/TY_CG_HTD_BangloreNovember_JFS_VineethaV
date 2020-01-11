@@ -1,0 +1,32 @@
+package com.capgemini.retailerspringboot.service;
+
+import java.util.List;
+
+import com.capgemini.retailerspringboot.dao.UserDAO;
+import com.capgemini.retailerspringboot.dao.UserDAOImpl;
+import com.capgemini.retailerspringboot.dto.UserInfo;
+
+public class UserServicesImpl implements UserService{
+	UserDAO userdao = new UserDAOImpl();
+
+	@Override
+	public boolean addUser(UserInfo user) {
+		return userdao.addUser(user);
+	}
+
+	@Override
+	public UserInfo getUser(int id) {
+		return userdao.getUser(id);
+	}
+
+	@Override
+	public List<UserInfo> getAllUsers() {
+		return userdao.getAllUsers();
+	}
+
+	@Override
+	public boolean deleteUser(int id) {
+		return userdao.deleteUser(id);
+	}
+
+}

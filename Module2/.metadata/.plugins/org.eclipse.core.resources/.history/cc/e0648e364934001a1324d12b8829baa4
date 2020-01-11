@@ -1,0 +1,17 @@
+package com.capgemini.retailerspringboot.controller;
+
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class RetailserAppControllerAdvice {
+	@ExceptionHandler(UserInfoExceptions.class)
+	public UserInfoResponse handleUserInfoExceptions(UserInfoExceptions e) {
+		UserInfoResponse responce = new UserInfoResponse();
+		responce.setStatuscode(501);
+		responce.setMessage("Exception");
+		responce.setDescription(e.getMessage());
+		return responce;
+	}
+
+}

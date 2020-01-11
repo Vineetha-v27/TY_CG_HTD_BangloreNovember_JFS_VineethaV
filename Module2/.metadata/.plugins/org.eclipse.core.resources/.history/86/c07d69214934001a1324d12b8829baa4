@@ -1,0 +1,5 @@
+package com.capgemini.retailerspringboot.controller;
+
+public class RetailserAppControllerAdvice {
+
+}

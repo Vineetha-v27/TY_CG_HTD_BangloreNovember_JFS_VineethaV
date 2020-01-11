@@ -1,0 +1,5 @@
+package com.capgemini.retailerspringboot.exceptions;
+
+public class UserInfoExceptions {
+
+}

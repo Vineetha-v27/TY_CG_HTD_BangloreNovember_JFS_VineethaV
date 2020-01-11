@@ -1,0 +1,93 @@
+package com.capgemini.retailerspringboot.controller;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capgemini.retailerspringboot.dto.OrderInfo;
+import com.capgemini.retailerspringboot.dto.OrderInfoResponce;
+import com.capgemini.retailerspringboot.service.OrderService;
+
+@RestController
+public class OrderInfoController {
+		
+		@Autowired
+		OrderService service;
+		
+		@PostMapping(path="/add-order",produces = MediaType.APPLICATION_JSON_VALUE,
+				consumes = MediaType.APPLICATION_JSON_VALUE)
+		public OrderInfoResponce addOrder(@RequestBody OrderInfo order) {
+			OrderInfoResponce response = new OrderInfoResponce();
+			if(service.addOrder(order)) {
+				response.setStatusCode(201);
+				response.setMessage("Success");
+				response.setDescription("Order added");
+			} else {
+				response.setStatusCode(401);
+				response.setMessage("Failure");
+				response.setDescription("Order with same name already exists");
+			}
+			return response;
+		}
+		
+		@GetMapping(path="/view-order",produces = MediaType.APPLICATION_JSON_VALUE)
+		public OrderInfoResponce viewProduct(@RequestParam("id") int id) {
+			OrderInfoResponce response = new OrderInfoResponce();
+			OrderInfo order=service.getOrder(id);
+			if(order!=null) {
+				response.setStatusCode(201);
+				response.setMessage("Success");
+				response.setDescription("Order found");
+				response.setOrder(Arrays.asList(order));
+			} else {
+				response.setStatusCode(401);
+				response.setMessage("Failure");
+				response.setDescription("Order id does not exist");
+			}
+			return response;
+		}
+		
+		@GetMapping(path="/view-allorders",produces = MediaType.APPLICATION_JSON_VALUE)
+		public OrderInfoResponce viewAllProducts() {
+			OrderInfoResponce response = new OrderInfoResponce();
+			List<OrderInfo> list=service.getAllOrders();
+			if(list.size()!=0) {
+				response.setStatusCode(201);
+				response.setMessage("Success");
+				response.setDescription("Orders found");
+				response.setOrder(list);
+			} else {
+				response.setStatusCode(401);
+				response.setMessage("Failure");
+				response.setDescription("No data");
+			}
+			return response;
+			
+		}
+		
+		@DeleteMapping(path = "/delete-order/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+		public OrderInfoResponce deleteOrder(@PathVariable("id") int id) {
+			OrderInfoResponce response = new OrderInfoResponce();
+			if(service.deleteOrder(id)) {
+				response.setStatusCode(201);
+				response.setMessage("Success");
+				response.setDescription("Order deleted");
+			} else {
+				response.setStatusCode(401);
+				response.setMessage("Failure");
+				response.setDescription("Order not found");
+			}
+			return response;
+		}
+
+	}
+

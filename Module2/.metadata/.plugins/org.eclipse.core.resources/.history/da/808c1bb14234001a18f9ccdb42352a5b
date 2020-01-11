@@ -1,0 +1,44 @@
+package com.capgemini.retailerspringboot.dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.retailerspringboot.dto.ProductInfo;
+
+@Repository
+public class ProductDAOImpl implements ProductDAO{
+	
+	@PersistenceUnit
+	EntityManagerFactory factory;
+
+	@Override
+	public boolean addProduct(ProductInfo product) {
+		
+		return false;
+	}
+
+	@Override
+	public ProductInfo getProduct(int id) {
+		return null;
+	}
+
+	@Override
+	public List<ProductInfo> getAllProducts() {
+		return null;
+	}
+
+	@Override
+	public boolean deleteProduct(int id) {
+		return false;
+	}
+
+	@Override
+	public boolean modifyProduct(int id, String name) {
+		return false;
+	}
+
+}
