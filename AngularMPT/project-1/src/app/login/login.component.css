@@ -1,0 +1,15 @@
+nav{
+    background : blanchedalmond;
+    
+}
+nav{
+    margin :0;
+}
+
+nav ul li{
+    display: inline;
+    padding-right: 15px
+}
+nav ul li a{
+    text-decoration: none;
+}
